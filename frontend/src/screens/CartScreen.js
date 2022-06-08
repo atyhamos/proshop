@@ -15,6 +15,10 @@ const CartScreen = () => {
   const cart = useSelector((state) => state.cart)
   const { cartItems } = cart
 
+  const addDecimals = (num) => {
+    return (Math.round(num * 100) / 100).toFixed(2)
+  }
+
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, qty))
@@ -87,7 +91,10 @@ const CartScreen = () => {
                 Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
                 items
               </h2>
-              ${cartItems.reduce((acc, item) => acc + item.qty * item.price, 0)}
+              $
+              {addDecimals(
+                cartItems.reduce((acc, item) => acc + item.qty * item.price, 0)
+              )}
             </ListGroup.Item>
             <ListGroup.Item>
               <Button
